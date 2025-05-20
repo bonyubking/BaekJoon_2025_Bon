@@ -11,8 +11,8 @@ cnt = 0
  
 for i in range(N):
     
-        cnt += K // lst[i]
-        K = K % lst[i]
+      cnt += K // lst[i]
+      K = K % lst[i]
 
         
-print(cnt)        
+print(cnt)   
