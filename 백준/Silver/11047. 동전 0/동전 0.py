@@ -11,10 +11,6 @@ cnt = 0
  
 for i in range(N):
     
-    if (lst[i] > K):
-        continue;
-    
-    else:
         cnt += K // lst[i]
         K = K % lst[i]
 
