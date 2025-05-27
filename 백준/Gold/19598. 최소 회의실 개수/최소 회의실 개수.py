@@ -14,6 +14,7 @@ lst.sort()
 
 
 heap = []
+
 for s, e in lst:
     if heap and heap[0] <= s:
         heapq.heapreplace(heap, e)   
@@ -21,5 +22,3 @@ for s, e in lst:
         heapq.heappush(heap, e) 
 
 print(len(heap)) 
-    
-
