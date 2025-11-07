@@ -2,7 +2,7 @@ import sys
 N, M = map(int,sys.stdin.readline().split())
 
 
-num = [int(input()) for _ in range(N)]   
+num = [int(sys.stdin.readline()) for _ in range(N)]   
 num.sort()
 ans = num[N-1] - num[0]
 
