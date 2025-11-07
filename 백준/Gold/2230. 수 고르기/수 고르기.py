@@ -1,13 +1,14 @@
-N, M = map(int,input().split())
+import sys
+N, M = map(int,sys.stdin.readline().split())
 
 
 num = [int(input()) for _ in range(N)]   
 num.sort()
-ans = max(num) - min(num)
+ans = num[N-1] - num[0]
 
 l, r = 0, 0
 
-while r <= (N-1):
+while r <= (N-1) and r >= l:
     
     if num[r] - num[l] < M:
         r += 1
@@ -16,9 +17,6 @@ while r <= (N-1):
         temp = num[r] - num[l]
         ans = min(ans, temp) 
         l += 1
-    
-    if l > r:
-        break
 
 print(ans)
             
