@@ -1,37 +1,43 @@
+## N 1씩키우면서 안전영역 그떄그떄 BFS로계산해서 MAX값 비교
 from collections import deque
 
 N = int(input())
-land = [list(map(int, input().split())) for _ in range(N)]
-max_height = max(map(max, land))
+ans = 1
+land = [[] for _ in range (N)]
 
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
+for i in range (N):
+    temp = list(map(int,input().split()))
+    land[i] = temp
+    
+dx = [1,-1,0,0]
+dy = [0,0,1,-1]
 
-def bfs(x, y, h, visited):
+
+def bfs(x,y, key, visited):
     q = deque()
     q.append((x, y))
-    visited[x][y] = True
+    visited[x][y] = 1
 
     while q:
-        cx, cy = q.popleft()
-        for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
+        x, y = q.popleft()
+        for d in range(4):
+            nx = x + dx[d]
+            ny = y + dy[d]
             if 0 <= nx < N and 0 <= ny < N:
-                if (not visited[nx][ny]) and land[nx][ny] > h:
-                    visited[nx][ny] = True
+                if land[nx][ny] > key and visited[nx][ny] == 0:
+                    visited[nx][ny] = 1
                     q.append((nx, ny))
+                    
+for key in range(1, 101):
+    visited = [[0]*N for _ in range(N)]
+    temp1 = 0
 
-
-answer = 0
-for h in range(max_height + 1):  
-    visited = [[False] * N for _ in range(N)]
-    safe = 0
     for i in range(N):
         for j in range(N):
-            if land[i][j] > h and not visited[i][j]:
-                safe += 1
-                bfs(i, j, h, visited)
-    answer = max(answer, safe)
+            if land[i][j] > key and visited[i][j] == 0:
+                bfs(i, j, key, visited)
+                temp1 += 1
 
-print(answer)
+    ans = max(ans, temp1)
+    
+print(ans)
