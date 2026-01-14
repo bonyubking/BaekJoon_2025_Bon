@@ -1,41 +1,28 @@
-import heapq
+N = int(input())
+M = int(input())
 
-n = int(input())
-m = int(input())
+cost = [[1e9] * N for _ in range (N)]
 
-bus = [[] for _ in range (n+1)]
+for i in range(N):
+    cost[i][i] = 0
 
-for _ in range (m):
+for _ in range (M):
     a,b,c = map(int,input().split())
-    bus[a].append((b,c))
+    if cost[a-1][b-1] != 0:
+        cost[a-1][b-1] = min(cost[a-1][b-1], c)
+    else:
+        cost[a-1][b-1] = c
 
 
+for k in range(N):
+    for i in range(N):
+        for j in range(N):
+            cost[i][j] = min(cost[i][j], cost[i][k] + cost[k][j])
 
-def dijkstra(start):
-    
-    INF = int(1e9)
-    ans = [INF] * (n+1)
-    heap = []
-    heapq.heappush(heap, (0, start))
-    ans[start] = 0
-    
-    while heap:
-        cost, now = heapq.heappop(heap)
-        
-        if cost > ans[now]:
-            continue
-        
-        for next_node, next_cost in bus[now]:
-            new_cost = cost + next_cost
-            if new_cost < ans[next_node]:
-                ans[next_node] = new_cost
-                heapq.heappush(heap, (new_cost, next_node))
-    
-    for i in range(len(ans)):
-        if ans[i] == INF:
-            ans[i] = 0
-            
-    return(ans)
-
-for i in range (1, n+1):
-    print(*dijkstra(i)[1:]) ## 리스트 요소를 공백으로출력(*) , 두번쨰항부터출력 ([1:])
+for i in range(N):
+    for j in range(N):
+        if cost[i][j] == 1e9:
+            print(0, end=' ')
+        else:
+            print(cost[i][j], end=' ')
+    print()
