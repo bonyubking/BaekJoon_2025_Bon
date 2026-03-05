@@ -44,13 +44,13 @@ for s in range(1, landnum + 1):
                 
     while q:
         x, y = q.popleft()
+        if dist[x][y]+1 > ans:
+            break
         for h in range(4):
             nx = x+dx[h]
             ny = y+dy[h]
             if 0 <= nx < N and 0 <= ny < N:
                 if maps[nx][ny] == 0 and dist[nx][ny] == -1:
-                    if dist[x][y]+1 > ans:
-                        continue
                     dist[nx][ny] = dist[x][y] + 1
                     q.append((nx, ny))
 
