@@ -8,7 +8,8 @@ for i in range (N):
     lst = list(map(int,input().split()))
     maps.append(lst)
 
-visited = [[0] * N for _ in range(N)]    
+visited = [[0] * N for _ in range(N)]
+dist = [[1e9]*N for _ in range(N)]    
 
 dx = [1,0,-1,0]
 dy = [0,1,0,-1]
@@ -33,7 +34,7 @@ for i in range(N):
 ans = 1e9
 
 for s in range(1, landnum + 1):
-    dist = [[-1]*N for _ in range(N)]
+
     q = deque()
 
     for i in range(N):
@@ -44,13 +45,15 @@ for s in range(1, landnum + 1):
                 
     while q:
         x, y = q.popleft()
+        
         if dist[x][y]+1 > ans:
             break
+        
         for h in range(4):
             nx = x+dx[h]
             ny = y+dy[h]
             if 0 <= nx < N and 0 <= ny < N:
-                if maps[nx][ny] == 0 and dist[nx][ny] == -1:
+                if maps[nx][ny] == 0 and dist[nx][ny] > dist[x][y]+1:
                     dist[nx][ny] = dist[x][y] + 1
                     q.append((nx, ny))
 
