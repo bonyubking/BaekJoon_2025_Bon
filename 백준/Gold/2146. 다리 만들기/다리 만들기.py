@@ -49,6 +49,8 @@ for s in range(1, landnum + 1):
             ny = y+dy[h]
             if 0 <= nx < N and 0 <= ny < N:
                 if maps[nx][ny] == 0 and dist[nx][ny] == -1:
+                    if dist[x][y]+1 > ans:
+                        continue
                     dist[nx][ny] = dist[x][y] + 1
                     q.append((nx, ny))
 
